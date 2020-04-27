@@ -70,6 +70,18 @@ class Ajax {
         
     // }
 
+    public function search_instagram_user() {
+        
+        (new MidrubBaseUserAppsCollectionPHPAnalyzerHelpers\PHPAnalyzer)->search_instagram_user();
+        
+    }
+
+    public function favourite() {
+        
+        (new MidrubBaseUserAppsCollectionPHPAnalyzerHelpers\PHPAnalyzer)->favourite();
+        
+    }
+
     public function user_detail() {
         
         (new MidrubBaseUserAppsCollectionPHPAnalyzerHelpers\PHPAnalyzer)->user_detail();

@@ -71,13 +71,35 @@ class PHPAnalyzer {
         
     // }
 
-    public function user_detail()
-    { 
+    public function search_instagram_user() {
+        
+        $username = $this->CI->input->get('username');
+
+        if($username) {
+            $all_username = $this->CI->phpanalyzer->get_users_name($username);
+            $users_list = "";
+            foreach ($all_username as $key => $user) {
+                
+                $users_list .= '<li>'.$user->username.'</li>';
+            }
+            
+            $data = array(
+                        'success' => TRUE,
+                        'users' => $users_list,
+                        );
+            echo json_encode($data);
+        }
+    }
+
+    public function user_detail() { 
         
         $username = $this->CI->input->post('username');
         
         if ($username) {
             $user_detail = $this->CI->phpanalyzer->get_user_detail($username);
+                // if(empty($user_detail) || $user_detail == false || $user_detail ==null) {
+
+                // }
 
             $user_media = $this->CI->phpanalyzer->get_all_user_media($user_detail['detail']->id);
 
@@ -376,6 +398,7 @@ class PHPAnalyzer {
                                                 <h1>@'.$user_detail['detail']->username.'</h1>
                                                 <h2>'.$user_detail['detail']->full_name.'</h2>
                                                 <h3>'.$user_detail['detail']->description.'</h3>
+                                                <a href="javascript:void(0)" alt="Add to favourites" username="'.$user_detail['detail']->username.'" id="favourite" style="text-decoration:none;"><i class="fa fa-heart-o"></i></a>
                                             </div>
                                         </div>							
                                         <div class="col-lg-6  col-sm-6 float-right">
@@ -892,6 +915,7 @@ class PHPAnalyzer {
         $chart_average_engagement_rate_one = '[' . implode(', ', $chart_average_engagement_rate_one_array) . ']';
         $chart_average_engagement_rate_two = '[' . implode(', ', $chart_average_engagement_rate_two_array) . ']';
 
+        $compare_top_posts = "";
         foreach($source_account_one_details->top_posts as $shortcode => $engagement_rate) {
             $compare_top_posts .= '<div class="col-lg-4 col-md-4 col-sm-6 float-left">'.$this->get_embed_html($shortcode).'</div>';
         }
@@ -1115,6 +1139,13 @@ class PHPAnalyzer {
             echo json_encode($data);
         }
         
+
+    }
+
+    public function favourite() {
+        $username = $this->input->get('username');
+        $option = $this->input->get('option');
+        echo $username."--".$option; die;
 
     }
 
