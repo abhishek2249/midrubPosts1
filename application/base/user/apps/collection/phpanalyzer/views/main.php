@@ -15,7 +15,7 @@
                     <li class="nav-item"><a href="#navpills-3" class="nav-link" data-toggle="tab" aria-expanded="true">
                             My Reports </a></li>
                     <li class="nav-item"><a href="#navpills-4" class="nav-link" data-toggle="tab"
-                            aria-expanded="false">Favourites</a></li>
+                            aria-expanded="false" id="favourite_report">Favourites</a></li>
                     <li class="nav-item"><a href="#navpills-5" class="nav-link" data-toggle="tab" aria-expanded="false">
                             Account Settings </a></li>
                     <li class="nav-item"><a href="#navpills-6" class="nav-link" data-toggle="tab" aria-expanded="false">
@@ -877,107 +877,48 @@
 
                                                                             <td><i class="fa fa-heart"></i>
                                                                             </td>
-
-
                                                                         </tr>
-
                                                                     </tbody>
                                                                 </table>
                                                             </div>
                                                         </div>
-
-
                                                     </div>
-
                                                 </div>
                                             </div>
-
-
                                         </div>
                                     </div>
-
-
                                     <div class="card">
                                         <div class="card-header">
                                             <h5 class="mb-0" data-toggle="collapse" data-target="#click4"
                                                 aria-expanded="true" aria-controls="click4"><i class="fa"
                                                     aria-hidden="true"></i>Your Favourite Instagram Accounts
-                                                <span>5</span></h5>
+                                                <span id="instagram_fav_list_count"></span></h5>
                                         </div>
                                         <div id="click4" class="collapse show" data-parent="#accordion-three">
-
-
                                             <div class="card" id="white">
                                                 <div class="card-body">
                                                     <div class="pHP_ana_up">
-
-
                                                         <div class="col-lg-12">
-
                                                             <div class="table-responsive stats">
                                                                 <table class="table header-border">
                                                                     <thead>
                                                                         <tr>
-                                                                            <th></th>
                                                                             <th>Username</th>
-                                                                            <th>Likes</th>
                                                                             <th>Followers</th>
-
-                                                                            <th></th>
-
+                                                                            <th>Following</th>
+                                                                            <th>Uploads</th>
                                                                         </tr>
                                                                     </thead>
-                                                                    <tbody>
+                                                                    <tbody id="instagram_fav_list">
                                                                         <tr>
                                                                             <td><img src="" width="30"></td>
                                                                             <td>Followers</td>
                                                                             <td>7,707,709
                                                                             </td>
                                                                             <td>7,707,709</td>
-
                                                                             <td><i class="fa fa-heart"></i>
                                                                             </td>
-
-
                                                                         </tr>
-                                                                        <tr>
-                                                                            <td><img src="" width="30"></td>
-                                                                            <td>Followers</td>
-                                                                            <td>7,707,709
-                                                                            </td>
-                                                                            <td>7,707,709</td>
-
-                                                                            <td><i class="fa fa-heart"></i>
-                                                                            </td>
-
-
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td><img src="" width="30"></td>
-                                                                            <td>Followers</td>
-                                                                            <td>7,707,709
-                                                                            </td>
-                                                                            <td>7,707,709</td>
-
-                                                                            <td><i class="fa fa-heart"></i>
-                                                                            </td>
-
-
-                                                                        </tr>
-
-                                                                        <tr>
-                                                                            <td><img src="" width="30"></td>
-                                                                            <td>Followers</td>
-                                                                            <td>7,707,709
-                                                                            </td>
-                                                                            <td>7,707,709</td>
-
-                                                                            <td><i class="fa fa-heart"></i>
-                                                                            </td>
-
-
-                                                                        </tr>
-
                                                                     </tbody>
                                                                 </table>
                                                             </div>

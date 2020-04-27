@@ -72,9 +72,8 @@ class PHPAnalyzer {
     // }
 
     public function search_instagram_user() {
-        
         $username = $this->CI->input->get('username');
-
+        
         if($username) {
             $all_username = $this->CI->phpanalyzer->get_users_name($username);
             $users_list = "";
@@ -94,12 +93,10 @@ class PHPAnalyzer {
     public function user_detail() { 
         
         $username = $this->CI->input->post('username');
+        $curr_user = $this->CI->user_id;
         
         if ($username) {
-            $user_detail = $this->CI->phpanalyzer->get_user_detail($username);
-                // if(empty($user_detail) || $user_detail == false || $user_detail ==null) {
-
-                // }
+            $user_detail = $this->CI->phpanalyzer->get_user_detail($curr_user, $username);
 
             $user_media = $this->CI->phpanalyzer->get_all_user_media($user_detail['detail']->id);
 
@@ -107,6 +104,7 @@ class PHPAnalyzer {
             $user_logs = $user_detail['logs'];
             $details = [];
             $details = json_decode($user_detail['detail']->details);
+            $fav_class = $user_detail['fav'];
 
 
             if(count($details->top_posts)) {
@@ -398,7 +396,7 @@ class PHPAnalyzer {
                                                 <h1>@'.$user_detail['detail']->username.'</h1>
                                                 <h2>'.$user_detail['detail']->full_name.'</h2>
                                                 <h3>'.$user_detail['detail']->description.'</h3>
-                                                <a href="javascript:void(0)" alt="Add to favourites" username="'.$user_detail['detail']->username.'" id="favourite" style="text-decoration:none;"><i class="fa fa-heart-o"></i></a>
+                                                <a href="javascript:void(0)" alt="Add to favourites" userid="'.$user_detail['detail']->id.'" id="favourite" style="text-decoration:none"><i class="fa '.$fav_class.'" id="fav_heart_icon"></i></a>
                                             </div>
                                         </div>							
                                         <div class="col-lg-6  col-sm-6 float-right">
@@ -1143,10 +1141,48 @@ class PHPAnalyzer {
     }
 
     public function favourite() {
-        $username = $this->input->get('username');
-        $option = $this->input->get('option');
-        echo $username."--".$option; die;
+        
+        $curr_user = $this->CI->user_id;
+        $userid = $this->CI->input->get('userid');
+        $option = $this->CI->input->get('option');
 
+        $response = $this->CI->phpanalyzer->favourite($curr_user,$option,$userid);
+        
+        if($response == true ) {
+            $data = array(
+                'success' => TRUE,
+                'response' => $response
+            );
+            
+        }  else {
+            $data = array(
+                'success' => FALSE,
+                'response' => FALSE
+            );
+        }
+
+        echo json_encode($data);
+
+    }
+
+    public function instagram_favourite_report() {
+
+        $curr_user = $this->CI->user_id;
+        $fav_result = $this->CI->phpanalyzer->favourite_report($curr_user);
+        if($fav_result) {
+            $fav_report = "";
+            foreach ($fav_result['report'] as $key => $fav) {
+                $fav_report .= '<tr><td>'.$fav->username.'</td><td>'.$fav->followers.'</td><td>'.$fav->following.'</td><td>'.$fav->uploads.'</td><td><i class="fa fa-heart"></i></td></tr>';
+            }
+            
+            $data = array(
+                'success' => TRUE,
+                'fav_report' => $fav_report,
+                'count' => $fav_result['count']
+            );
+            echo json_encode($data);
+        }
+        
     }
 
     public function phpanalyzer_user_ajax() 

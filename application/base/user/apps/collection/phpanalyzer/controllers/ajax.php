@@ -70,6 +70,12 @@ class Ajax {
         
     // }
 
+    public function instagram_favourite_report() {
+        
+        (new MidrubBaseUserAppsCollectionPHPAnalyzerHelpers\PHPAnalyzer)->instagram_favourite_report();
+        
+    }
+
     public function search_instagram_user() {
         
         (new MidrubBaseUserAppsCollectionPHPAnalyzerHelpers\PHPAnalyzer)->search_instagram_user();

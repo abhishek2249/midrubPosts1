@@ -30,7 +30,17 @@ jQuery(document).ready( function ($) {
     //     // Make ajax call
     //     Main.ajax_call(url + 'user/app-ajax/phpanalyzer', 'GET', data, 'phpanalyzer_user');
         
-    // };    
+    // };
+    
+    // Main.loadInstagramFavourites = function () {
+        
+    //     var data = {
+    //         action: 'instagram_favourite_report'
+    //     };
+    //     // Make ajax call
+    //     Main.ajax_call(url + 'user/app-ajax/phpanalyzer', 'GET', data, 'instagram_favourite_report');
+        
+    // };
 
     // -------------------searchbox ------------------------
       
@@ -138,26 +148,56 @@ jQuery(document).ready( function ($) {
         });
         //compare search
 
+        $(document).on('click','#favourite_report',function(e){
+            var data = {
+                action: 'instagram_favourite_report'
+            };
+            // Make ajax call
+            Main.ajax_call(url + 'user/app-ajax/phpanalyzer', 'GET', data, 'instagram_favourite_report');
+            $('.page-loading').fadeIn('slow');
+        });
+
         //add to favorite
         $(document).on('click','#favourite', function(e){
             //console.log($(this).children('.class'));
             var fav = $(this).find("i").attr('class');
-            var username = $(this).attr('username');
-            console.log(username);
-            // if(fav=='fa fa-heart-o') {
-            //     var option = "add";
-            //     var data = {
-            //         action: 'favourite',
-            //         username: username
-            //     };
-            //     // Set CSRF
-                
-            //     // Make ajax call
-            //     Main.ajax_call(url + 'user/app-ajax/phpanalyzer', 'GET', data, 'favourite');
-            //     // Display loading animation
-            //     $('.page-loading').fadeIn('slow');
-            // }
+            var userid = $(this).attr('userid');
+            if(fav=='fa fa-heart-o') {
+                var option = "add";
+                var data = {
+                    action: 'favourite',
+                    userid: userid,
+                    option: option
+                }
+            }
+
+            if(fav=='fa fa-heart') {
+                var option = "remove";
+                var data = {
+                    action: 'favourite',
+                    userid: userid,
+                    option: option
+                }
+            }
+
+             // Make ajax call
+             Main.ajax_call(url + 'user/app-ajax/phpanalyzer', 'GET', data, 'favourite');
+             // Display loading animation
+             $('.page-loading').fadeIn('slow');
         });
+
+        Main.methods.favourite = function ( status, data ) { 
+        
+            if ( status === 'success' ) {
+                if($("#fav_heart_icon").hasClass("fa-heart-o")) {
+                    $('#fav_heart_icon').removeClass("fa-heart-o");
+                    $('#fav_heart_icon').addClass("fa-heart");
+                } else {
+                    $('#fav_heart_icon').removeClass("fa-heart");
+                    $('#fav_heart_icon').addClass("fa-heart-o");
+                }
+            }
+        };
         //add to favorite
       
       //----- search user--------------------
@@ -248,7 +288,17 @@ jQuery(document).ready( function ($) {
    
     // Load all media's categories
     //Main.loadPHPAnalyzer();
+    //Main.loadInstagramFavourites();
     //$('#example').DataTable();
+
+    Main.methods.instagram_favourite_report = function ( status, data ) { 
+        
+        if ( status === 'success' ) {
+               $('#instagram_fav_list').html(data.fav_report);
+               $('#instagram_fav_list_count').html(data.count);
+        }
+        
+    };
     
     
 });

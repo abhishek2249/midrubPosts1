@@ -74,7 +74,7 @@ class PHPAnalyzer extends CI_MODEL
         }
     }
 
-    public function get_user_detail($username) {
+    public function get_user_detail($curr_user, $username) {
         
         $this->db->select('*');
         $this->db->from('instagram_users');
@@ -84,9 +84,6 @@ class PHPAnalyzer extends CI_MODEL
         
         if ( $query->num_rows() === 1 ) {    
             $source_account = $query->result(); 
-            // $data = $source_account[0]->details;
-            // $details = $this->json($data);
-            //$this->json();           
         } else {            
             return false;            
         }
@@ -100,9 +97,21 @@ class PHPAnalyzer extends CI_MODEL
         if ( $query->num_rows() > 0 ) {    
             $source_account_logs = $query->result();
         }
+
+        $fav = $this->db->select('user_id')->from('favorites')->where('source_user_id',$source_account[0]->id)->where('user_id',$curr_user)->get();
+
+        if( $fav->num_rows() > 0 ) {
+            $class ="fa-heart";
+        } else {
+            $class="fa-heart-o";
+        }
+
        $user = [];
        $user['detail'] = $source_account[0];
        $user['logs'] = $source_account_logs;
+       $user['fav'] = $class;
+
+       
         
        return $user;
     }
@@ -161,6 +170,73 @@ class PHPAnalyzer extends CI_MODEL
             
             return false;
             
+        }
+    }
+
+
+    public function favourite($curr_user, $option, $userid) {
+        
+        if($option== "add") {
+            // Set data
+        $data = array(
+            'user_id' => $curr_user,
+            'source_user_id' => $userid,
+            'source' => 'instagram',
+            'date' => date("Y-m-d h:i:s")
+        );
+        
+            $this->db->insert('favorites', $data);
+            return true;
+        }
+
+        if($option== "remove") {
+
+            $this->db->where('user_id', $curr_user);
+            $this->db->where('source_user_id', $userid);
+            $this->db->where('source', 'instagram');
+            $this->db->delete('favorites');
+            
+            if($this->db->affected_rows()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function favourite_report($curr_user) {
+
+        $this->db->select('source_user_id');
+        $this->db->from('favorites');
+        $this->db->where('source', 'instagram');
+        $this->db->where('user_id', $curr_user);
+        
+        $query = $this->db->get();
+        
+        
+        if ( $query->num_rows() > 0 ) {
+            $result = $query->result();
+            foreach ($result as $key => $value) {
+                $fav_ids[] = $value->source_user_id;
+            }
+            
+            $this->db->select('id,username,followers,following,uploads');
+            $this->db->from('instagram_users');
+            $this->db->where_in('id', $fav_ids);
+            $query = $this->db->get();   
+            
+            $favourite = [];
+            if ( $query->num_rows() > 0 ) {
+                $favourite['report'] = $query->result();
+                $favourite['count'] = $query->num_rows();
+                return $favourite;
+            } else {                
+                return false;                
+            }
+
+            //return $query->result();
+        } else {
+            return false;
         }
     }
     
