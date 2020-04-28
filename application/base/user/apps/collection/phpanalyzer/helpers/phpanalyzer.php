@@ -115,6 +115,7 @@ class PHPAnalyzer {
                     $top_media .= '<div class="col-sm-12 col-md-6 col-lg-4">'.$this->get_embed_html($shortcode).'</div>';
                 }
             }
+            $number = rand(10,100);
 
             //user media
             foreach ($user_media as $media_data) {
@@ -568,20 +569,21 @@ class PHPAnalyzer {
                             Chart.defaults.global.elements.point.borderWidth = 7;
                         
                             //followers
-                                let followers_chart_context = document.getElementById("followers_chart").getContext("2d");
+                            
+                                let followers_chart_context'.$number.' = document.getElementById("followers_chart").getContext("2d");
 
-                                let gradient = followers_chart_context.createLinearGradient(0, 0, 0, 250);
-                                gradient.addColorStop(0, "rgba(43, 227, 155, 0.6)");
-                                gradient.addColorStop(1, "rgba(43, 227, 155, 0.05)");
+                                let gradient'.$number.' = followers_chart_context'.$number.'.createLinearGradient(0, 0, 0, 250);
+                                gradient'.$number.'.addColorStop(0, "rgba(43, 227, 155, 0.6)");
+                                gradient'.$number.'.addColorStop(1, "rgba(43, 227, 155, 0.05)");
 
-                                new Chart(followers_chart_context, {
+                                new Chart(followers_chart_context'.$number.', {
                                     type: "line",
                                     data: {
                                         labels: ['.$all_map_dates.'],
                                         datasets: [{
                                             label: "Followers",
                                             data: ['.implode(",", array_reverse($followers)).'],
-                                            backgroundColor: gradient,
+                                            backgroundColor: gradient'.$number.',
                                             borderColor: "#2BE39B",
                                             fill: true
                                         }]
@@ -629,20 +631,20 @@ class PHPAnalyzer {
                                     }
                                 });
 
-                            let following_chart_context = document.getElementById("following_chart").getContext("2d");
+                            let following_chart_context'.$number.' = document.getElementById("following_chart").getContext("2d");
 
-                            gradient1 = following_chart_context.createLinearGradient(0, 0, 0, 250);
-                            gradient1.addColorStop(0, "rgba(62, 193, 255, 0.6)");
-                            gradient1.addColorStop(1, "rgba(62, 193, 255, 0.05)");
+                            gradient1'.$number.' = following_chart_context'.$number.'.createLinearGradient(0, 0, 0, 250);
+                            gradient1'.$number.'.addColorStop(0, "rgba(62, 193, 255, 0.6)");
+                            gradient1'.$number.'.addColorStop(1, "rgba(62, 193, 255, 0.05)");
                         
-                            new Chart(following_chart_context, {
+                            new Chart(following_chart_context'.$number.', {
                                 type: "line",
                                 data: {
                                     labels: ['.$all_map_dates.'],
                                     datasets: [{
                                         label: "Following",
                                         data: ['.implode(",", array_reverse($following)).'],
-                                        backgroundColor: gradient1,
+                                        backgroundColor: gradient1'.$number.',
                                         borderColor: "#3ec1ff",
                                         fill: true
                                     }]
@@ -690,19 +692,19 @@ class PHPAnalyzer {
                                 }
                             });
 
-                            let average_engagement_rate_chart_context = document.getElementById("average_engagement_rate_chart").getContext("2d");
+                            let average_engagement_rate_chart_context'.$number.' = document.getElementById("average_engagement_rate_chart").getContext("2d");
 
-                    gradient2 = average_engagement_rate_chart_context.createLinearGradient(0, 0, 0, 250);
-                    gradient2.addColorStop(0, "rgba(237, 73, 86, 0.4)");
-                    gradient2.addColorStop(1, "rgba(237, 73, 86, 0.05)");
+                    gradient2'.$number.' = average_engagement_rate_chart_context'.$number.'.createLinearGradient(0, 0, 0, 250);
+                    gradient2'.$number.'.addColorStop(0, "rgba(237, 73, 86, 0.4)");
+                    gradient2'.$number.'.addColorStop(1, "rgba(237, 73, 86, 0.05)");
 
-                let average_engagement_rate_chart = new Chart(average_engagement_rate_chart_context, {
+                let average_engagement_rate_chart'.$number.' = new Chart(average_engagement_rate_chart_context'.$number.', {
                     type: "line",
                     data: {
                         labels: ['.$all_map_dates.'],
                         datasets: [{
                             data: ['.implode(",", array_reverse($average_engagement_rate)).'],
-                            backgroundColor: gradient2,
+                            backgroundColor: gradient2'.$number.',
                             borderColor: "#ED4956",
                             fill: true
                         }]
@@ -856,9 +858,10 @@ class PHPAnalyzer {
     {
         $f_username = $this->CI->input->post('f_username');
         $s_username = $this->CI->input->post('s_username');
+        $curr_user = $this->CI->user_id;
      
-        $source_account_one = $this->CI->phpanalyzer->get_user_detail($f_username);
-        $source_account_two = $this->CI->phpanalyzer->get_user_detail($s_username);
+        $source_account_one = $this->CI->phpanalyzer->get_user_detail($curr_user ,$f_username);
+        $source_account_two = $this->CI->phpanalyzer->get_user_detail($curr_user , $s_username);
 
         $source_account_one_details = json_decode($source_account_one['detail']->details);
         $source_account_two_details = json_decode($source_account_two['detail']->details);
