@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 27, 2020 at 03:13 PM
+-- Generation Time: Apr 29, 2020 at 06:50 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.2
 
@@ -1660,8 +1660,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`user_id`, `username`, `email`, `last_name`, `first_name`, `password`, `role`, `status`, `date_joined`, `last_access`, `ip_address`, `reset_code`, `activate`) VALUES
-(104, 'administrator', 'admin@example.com', NULL, NULL, '$2a$08$CwRg961g2QCS1kBjA0NgAOs8Dg31QzOP6mNxF.OdrCd5BqAmtLyOe', 1, 1, '2016-08-11 10:37:16', '2020-04-27 06:34:03', '', ' ', ''),
-(118, 'testuser', 'user@email.com', NULL, NULL, '$2a$08$fcmlgRj56zPvpYvAc3v9Ze8Tp4xX7cKmoSJZOhEqTIjvZmFtdfu/O', 0, 1, '2016-10-10 12:37:03', '2020-04-27 09:59:11', '', ' ', ''),
+(104, 'administrator', 'admin@example.com', NULL, NULL, '$2a$08$CwRg961g2QCS1kBjA0NgAOs8Dg31QzOP6mNxF.OdrCd5BqAmtLyOe', 1, 1, '2016-08-11 10:37:16', '2020-04-28 13:22:11', '', ' ', ''),
+(118, 'testuser', 'user@email.com', NULL, NULL, '$2a$08$fcmlgRj56zPvpYvAc3v9Ze8Tp4xX7cKmoSJZOhEqTIjvZmFtdfu/O', 0, 1, '2016-10-10 12:37:03', '2020-04-28 13:22:30', '', ' ', ''),
 (119, 'pranav', 'pranav@1touch.market', 'Kumar', 'Pranav', '$2a$08$X3IiaU6Qywm8cQxbEgARc.KulF.C0mAHGvqbio2F61CzOxc8Cx6Ha', 0, 1, '2020-03-19 12:37:31', '2020-03-19 12:54:21', '::1', ' ', '');
 
 -- --------------------------------------------------------
