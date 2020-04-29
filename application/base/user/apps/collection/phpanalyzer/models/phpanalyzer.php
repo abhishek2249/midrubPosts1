@@ -57,10 +57,11 @@ class PHPAnalyzer extends CI_MODEL
      */
     public function get_all_users() {
         
-        $this->db->select('username');
-        
+        $this->db->select('username,full_name,profile_picture_url,followers,following,uploads,average_engagement_rate');
         $this->db->from($this->table);
-        
+        //$this->db->where('username', 'akshaykumar');
+        //$this->db->limit(8);
+
         $query = $this->db->get();
         
         if ( $query->num_rows() > 0 ) {

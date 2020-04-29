@@ -63,12 +63,12 @@ class Ajax {
      * 
      * @return void
      */
-    // public function phpanalyzer_user() 
-    // {
+    public function dashboard() 
+    {
         
-    //    (new MidrubBaseUserAppsCollectionPHPAnalyzerHelpers\PHPAnalyzer)->phpanalyzer_user();
+       (new MidrubBaseUserAppsCollectionPHPAnalyzerHelpers\PHPAnalyzer)->dashboard();
         
-    // }
+    }
 
     public function instagram_favourite_report() {
         

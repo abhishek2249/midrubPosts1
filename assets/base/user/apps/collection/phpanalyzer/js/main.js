@@ -22,25 +22,33 @@ jQuery(document).ready( function ($) {
      * 
      * @since   0.0.7.6
     //  */
-    // Main.loadPHPAnalyzer = function () {
+    Main.loadDashboard = function () {
         
-    //     var data = {
-    //         action: 'phpanalyzer_user'
-    //     };
-    //     // Make ajax call
-    //     Main.ajax_call(url + 'user/app-ajax/phpanalyzer', 'GET', data, 'phpanalyzer_user');
+        var data = {
+            action: 'dashboard'
+        };
+        // Make ajax call
+        Main.ajax_call(url + 'user/app-ajax/phpanalyzer', 'GET', data, 'dashboard');
         
-    // };
+    };
+
+    Main.methods.dashboard = function ( status, data ) { 
+            
+        if ( status === 'success' ) {
+            $('#dashboard').html(data.dashboard);
+        }
+        
+    };
     
-    // Main.loadInstagramFavourites = function () {
+    Main.loadInstagramFavourites = function () {
         
-    //     var data = {
-    //         action: 'instagram_favourite_report'
-    //     };
-    //     // Make ajax call
-    //     Main.ajax_call(url + 'user/app-ajax/phpanalyzer', 'GET', data, 'instagram_favourite_report');
+        var data = {
+            action: 'instagram_favourite_report'
+        };
+        // Make ajax call
+        Main.ajax_call(url + 'user/app-ajax/phpanalyzer', 'GET', data, 'instagram_favourite_report');
         
-    // };
+    };
 
     // -------------------searchbox ------------------------
       
@@ -288,14 +296,15 @@ jQuery(document).ready( function ($) {
    
     // Load all media's categories
     //Main.loadPHPAnalyzer();
-    //Main.loadInstagramFavourites();
+    Main.loadInstagramFavourites();
+    Main.loadDashboard();
     //$('#example').DataTable();
 
     Main.methods.instagram_favourite_report = function ( status, data ) { 
         
         if ( status === 'success' ) {
                $('#instagram_fav_list').html(data.fav_report);
-               $('#instagram_fav_list_count').html(data.count);
+               $('.instagram_fav_list_count').html(data.count);
         }
         
     };

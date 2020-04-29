@@ -71,6 +71,68 @@ class PHPAnalyzer {
         
     // }
 
+    public function dashboard(){
+        $all_username = $this->CI->phpanalyzer->get_all_users();
+        $username = [];
+        $all_divs = "";
+        foreach ($all_username as $key => $user) {
+            
+            $username[] = $user->username;
+            $all_divs .= '
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 float-left paddL0">
+                                        <div class="float-left">
+                                            <img src="'.$user->profile_picture_url.'" class="img-fluid social-img">
+                                            <div class="media-name"><i class="fa fa-instagram"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 float-left paddt10 paddL0">
+                                        <div class="float-left color">
+                                            <h1>@'.$user->username.'</h1>
+                                            <h2>'.$user->full_name.' <i class="fa fa-check-circle"></i></h2>
+                                        </div>
+                                        <div class="float-left color">
+                                            <div class="percentage"></div>
+                                            <div><i class="fas fa-map-marker-alt"> Delhi, India</i></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6 float-left record-col">
+                                        <div class="color paddt10">
+                                            <h3>'.$user->followers.'</h3>
+                                            <h1>Followers</h1>
+                                        </div>
+                                        <div class="color paddt10">
+                                            <h3>'.$user->average_engagement_rate.'%</h3>
+                                            <h1>Engagement</h1>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        ';
+        }
+        $dashboard = "";
+
+        $dashboard .='
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="row pHP_ana_up ana-col">
+                            '.$all_divs.'
+                        </div>
+                    </div>
+                </div>
+                    ';
+        
+        $data = array(
+            'success' => TRUE,
+            'dashboard' => $dashboard,
+            );
+        echo json_encode($data);
+    }
+
     public function search_instagram_user() {
         $username = $this->CI->input->get('username');
         
